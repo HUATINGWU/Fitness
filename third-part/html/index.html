@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户登陆&注册页面</title>
+
+    <style>
+        .input_container {
+            clear: both;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .label_left {
+            float: left;
+            width: 30%;
+        }
+
+        .input_right {
+            float: left;
+            width: 60%;
+        }
+    </style>
+
+    <script src="../js1/db_user.js"></script>
+    <script src="../third-part/JQuery/jquery-1.12.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var userManager = getUserManager();
+            // ---------------------------------------------------------
+            $('#btn_login').click(function () {
+                var account = $('#account0').val();   // string key
+                var pwd = $('#pwd0').val();           // string
+                if (userManager.login(account, pwd)) {
+                    $('#div_login').hide();
+                    //
+                    $('#div_loginOrRegister').hide();
+                    $('#div_account').show();
+                    var user = userManager.getCurrentUser();
+                    $('#span_name').html(user.name);
+                } else {
+                    alert('用户名或密码不正确');
+                }
+            });
+            $('#btn_logout').click(function () {
+                userManager.logout();
+                $('#div_account').hide();
+                $('#div_loginOrRegister').show();
+                $('#span_name').empty();
+            });
+            $('#btn_register').click(function () {
+                var user = {
+                    account: $('#account').val(),   // string key
+                    pwd: $('#pwd').val(),           // string
+                    name: $('#name').val(),         // string
+                    gender: $('#gender').val(),     // string
+                    age: parseInt($('#age').val()), // int
+                    tel: $('#tel').val(),           // string
+                    email: $('#email').val(),       // string
+                    address: $('#address').val(),   // string
+                };
+                if (userManager.registerUser(user)) {
+                    $('#div_loginOrRegister').hide();
+                    if (userManager.login(user.name, user.pwd)) {
+                        $('#div_register').hide();
+                        //
+                        $('#div_loginOrRegister').hide();
+                        $('#div_account').show();
+                        $('#span_name').html(user.name);
+                    } else {
+                    }
+                } else {
+                    alert('注册失败');
+                }
+            });
+            // ---------------------------------------------------------挡住登陆或者注册页面
+            $('#btn_to_login').click(function () {
+                $('#div_login').show();
+                $('#div_register').hide();
+            });
+            $('#btn_to_register').click(function () {
+                $('#div_login').hide();
+                $('#div_register').show();
+            });
+            // ---------------------------------------------------------
+            var user = userManager.getCurrentUser();
+            if (user) {
+                $('#div_account').show();
+                $('#span_name').html(user.name);
+            } else {
+                $('#div_loginOrRegister').show();
+            }
+        });
+    </script>
+
+</head>
+
+<body style="width: 80%; margin: 0 auto;">
+
+    <div id="div_user" style="clear: both; width: 100%;">
+        <div id="div_loginOrRegister" style="display: none; float: right;">
+            <button id="btn_to_login">登陆</button> | <button id="btn_to_register">注册</button>
+        </div>
+        <div id="div_account" style="display: none; float: right;">
+            <span id="span_name"></span>，欢迎您。
+            <button id="btn_logout">注销</button>
+        </div>
+    </div>
+<!-------登陆页面-------->
+    <div id="div_login" style="clear: both; width: 100%; margin-top: 100px; display: none;">
+        <form action="#">
+            <div class="input_container">
+                <label class="label_left" for="account0">账号</label>
+                <input class="input_right" type="text" id="account0">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="pwd0">密码</label>
+                <input class="input_right" type="password" id="pwd0">
+            </div>
+            <div class="input_container">
+                <button type="reset">重置</button>
+                <button id="btn_login">登陆</button>
+            </div>
+        </form>
+    </div>
+<!-----------注册页面------------>
+    <div id="div_register" style="clear: both; width: 100%; margin-top: 100px; display: none;">
+        <form action="#">
+            <div class="input_container">
+                <label class="label_left" for="account">账号</label>
+                <input class="input_right" type="text" id="account">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="pwd">密码</label>
+                <input class="input_right" type="password" id="pwd">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="name">姓名</label>
+                <input class="input_right" type="text" id="name">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="gender">性别</label>
+                <select id="gender">
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="age">年龄</label>
+                <input class="input_right" type="number" min="10" max="50" id="age">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="tel">电话号码</label>
+                <input class="input_right" type="tel" id="tel">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="email">邮箱</label>
+                <input class="input_right" type="email" id="email">
+            </div>
+            <div class="input_container">
+                <label class="label_left" for="address">地址</label>
+                <input class="input_right" type="text" id="address">
+            </div>
+            <div class="input_container">
+                <button type="reset">重置</button>
+                <button id="btn_register">注册</button>
+            </div>
+        </form>
+    </div>
+
+    <div style="clear: both; margin: 0 auto; text-align: center;">
+        <a href="update.html">更新用户</a>
+    </div>
+    <div style="clear: both; margin: 0 auto; text-align: center;">
+        <a href="allUsers.html">所有用户</a>
+    </div>
+
+</body>
+
+</html>

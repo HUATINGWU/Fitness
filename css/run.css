@@ -1,0 +1,133 @@
+.top{
+    width: 100%;
+    height: 70px;
+    background-color: #161616;
+    position: fixed;
+    z-index: 999;
+
+}
+.top .top_in{
+    width: 1400px;
+    height: 100%;
+
+    margin: 0 auto;
+}
+.top .top_left{
+    float: left;
+    height: 70px;
+    width: 190px;
+    margin-left: 50px;
+    background-color: #1dcb8b;
+}
+.top .top_left>h1{
+    width: 100%;
+    height: 100%;
+}
+.top .top_left>h1>a{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background: url("../images/top_left.png") no-repeat ;
+    background-size: 190px 70px;
+
+}
+.top .top_right{
+    float: right;
+    height: 100%;
+    width: 740px;
+    position: absolute;
+    margin-left:450px ;
+
+
+}
+.top .top_nav{
+    width: 400px;
+    height: 100%;
+    float: left;
+
+}
+.top .top_nav>li{
+    float: left;
+}
+.top .top_nav>li>a{
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 70px;
+    text-align: center;
+    margin-left: 80px;
+
+}
+.top .top_login{
+    float: right;
+    width: 150px;
+    height: 100%;
+    padding-right: 25px;
+}
+.top .top_login>li{
+    float: right;
+    line-height: 60px;
+    margin-left: 10px;
+}
+.top .top_login>li:nth-child(3){
+    width: 30px;
+    height: 30px;
+    background:url("../images/yonghu.png");
+    background-size: 30px 30px;
+    margin-top: 15px;
+}
+.top .top_login>li>a{
+    color: #ccc;
+}
+
+/*内容*/
+.yujia_contect{
+    width: 800px;
+    height: 1200px;
+
+    margin: 0 auto;
+    padding-top: 70px;
+}
+.yujia_contect>ul{
+
+}
+.yujia_contect>ul>li{
+    float: left;
+    width: 380px;
+    height: 250px;
+
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.yujia_contect>ul>li>img{
+    height: 220px;
+    width: 100%;
+    background-size: cover;
+}
+.yujia_contect>ul>li>p{
+    display: inline-block;
+    top: 120px;
+    left: 150px;
+    font-size: 22px;
+    margin:0 auto;
+    color: darkslategray;
+    font-weight: bold;
+}
+
+
+/*底部区域*/
+.footer{
+    height: 48px;
+    width: 100%;
+    background-color: #cccccc;
+    border: 50px;
+
+}
+.footer>p{
+    font-size: 12px;
+    color: darkslategray;
+    text-align: center;
+    margin-top: 10px;
+
+}

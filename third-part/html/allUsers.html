@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>所有用户</title>
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+
+    <script src="../js1/db_user.js"></script>
+    <script src="../third-part/angularjs/angular.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div ng-app="myApp" ng-controller="usersCtrl">
+        <table>
+            <tr>
+                <th>账号</th>
+                <th>密码</th>
+                <th>名字</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>电话号码</th>
+                <th>邮箱</th>
+                <th>地址</th>
+            </tr>
+            <tr ng-repeat="user in users">
+                <td>{{ user.account }}</td>
+                <td>{{ user.pwd }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.age }}</td>
+                <td>{{ user.tel }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <hr>
+        <button onclick="history.back();">返回</button>
+    </div>
+
+    <div>
+        <p>注：如果你想，可以添加查询参数。这里把所有的用户都列出来了。</p>
+        <p style="color: gray; font-style: italic;">注：这里，为了简化操作，使用了angularjs 1.x 版本。感兴趣的同学可以简单了解一下。</p>
+    </div>
+
+    <script>
+        var user = {
+            account: undefined, // string key
+            pwd: undefined,     // string
+            name: undefined,    // string
+            gender: undefined,  // string
+            age: undefined,     // int
+            tel: undefined,     // string
+            email: undefined,   // string
+            address: undefined, // string
+        }
+        var userManager = getUserManager();
+        // ---------------------------------------------------------
+        var app = angular.module('myApp', []);
+        app.controller('usersCtrl', function ($scope, $http) {
+            var showPwd = true;
+            $scope.users = userManager.listAllUsers(showPwd);
+        });
+    </script>
+
+</body>
+
+</html>

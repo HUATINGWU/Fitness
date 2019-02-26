@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>更新用户</title>
+
+    <style>
+        .input_container {
+            clear: both;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .label_left {
+            float: left;
+            width: 30%;
+        }
+
+        .input_right {
+            float: left;
+            width: 60%;
+        }
+    </style>
+
+
+    <script src="../js1/db_user.js"></script>
+    <script src="../third-part/JQuery/jquery-1.12.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var userManager = getUserManager();
+            // ---------------------------------------------------------
+            function resetUI(user) {
+                $('#account').val(user.account);        // string key
+                $('#pwd').val('');                      // string
+                $('#name').val(user.name);              // string
+                $('#gender').val(user.gender);          // string
+                parseInt($('#age').val(user.age + '')); // int
+                $('#tel').val(user.tel);                // string
+                $('#email').val(user.email);            // string
+                $('#address').val(user.address);        // string
+            }
+            // ---------------------------------------------------------
+            $('#btn_reset').click(function () {
+                resetUI(user);
+            });
+            $('#btn_update').click(function () {
+                var user_new = {
+                    account: $('#account').val(),   // string key
+                    pwd: $('#pwd').val(),           // string
+                    name: $('#name').val(),         // string
+                    gender: $('#gender').val(),     // string
+                    age: parseInt($('#age').val()), // int
+                    tel: $('#tel').val(),           // string
+                    email: $('#email').val(),       // string
+                    address: $('#address').val(),   // string
+                };
+                if (userManager.updateUser(user_new)) {
+                    user = user_new;
+                    resetUI(user);
+                } else {
+                    alert('更新失败');
+                }
+            });
+            // ---------------------------------------------------------
+            var user = userManager.getCurrentUser(true, null);
+            if (user) {
+                $('#div_update').show();
+                resetUI(user);
+            } else {
+                $('#div_update').hide();
+                alert('您还没有登陆');
+                history.back();
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="div_update" style="clear: both; width: 100%; margin-top: 100px; display: none;">
+        <div class="input_container">
+            <label class="label_left" for="account">账号</label>
+            <input class="input_right" type="text" id="account" disabled>
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="pwd">密码</label>
+            <input class="input_right" type="password" id="pwd">
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="name">姓名</label>
+            <input class="input_right" type="text" id="name">
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="gender">性别</label>
+            <select id="gender">
+                    <option value="male">男</option>
+                    <option value="female">女</option>
+                </select>
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="age">年龄</label>
+            <input class="input_right" type="number" min="10" max="50" id="age">
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="tel">电话号码</label>
+            <input class="input_right" type="tel" id="tel">
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="email">邮箱</label>
+            <input class="input_right" type="email" id="email">
+        </div>
+        <div class="input_container">
+            <label class="label_left" for="address">地址</label>
+            <input class="input_right" type="text" id="address">
+        </div>
+        <div class="input_container">
+            <button id="btn_reset">重置</button>
+            <button id="btn_update">更新</button>
+        </div>
+    </div>
+
+
+    <div>
+        <hr>
+        <button onclick="history.back();">返回</button>
+    </div>
+
+</body>
+
+</html>
